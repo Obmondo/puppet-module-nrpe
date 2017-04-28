@@ -1,9 +1,9 @@
 #
 define nrpe::command (
-  $command,
-  Enum[present, absent] $ensure       = present,
-  $sudo         = false,
-  $sudo_user    = 'root',
+  Enum[present, absent] $ensure    = present,
+  String                $command,
+  Boolean               $sudo      = false,
+  Eit_types::User       $sudo_user = 'root',
 ) {
   $_include_dir = lookup('nrpe::include_dir')
 
