@@ -9,7 +9,12 @@ define nrpe::command (
 
   file { "${_include_dir}/${title}.cfg":
     ensure  => $ensure,
-    content => template('nrpe/command.cfg.erb'),
+    content => epp('nrpe/command.cfg.epp', {
+      command   => $command,
+      sudo      => $sudo,
+      sudo_user => $sudo_user,
+      name      => $name,
+    }),
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
