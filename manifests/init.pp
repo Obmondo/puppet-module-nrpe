@@ -27,7 +27,7 @@ class nrpe (
   Eit_types::User $user,
   Eit_types::Group $group,
   Stdlib::AbsolutePath $pid_file,
-  Array[Eit_types::IP] $allowed_hosts      = ['127.0.0.1'],
+  Array[Eit_types::Host] $allowed_hosts      = ['127.0.0.1'],
   Eit_types::IP $server_address            = '0.0.0.0',
   Integer[0, default] $command_timeout     = 60,
   Boolean $manage_package                  = true,
