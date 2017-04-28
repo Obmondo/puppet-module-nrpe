@@ -3,78 +3,48 @@
     {
       "operatingsystem": "RedHat",
       "operatingsystemrelease": [
-        "5",
-        "6",
         "7"
       ]
     },
     {
       "operatingsystem": "CentOS",
       "operatingsystemrelease": [
-        "5",
-        "6",
-        "7"
-      ]
-    },
-    {
-      "operatingsystem": "OracleLinux",
-      "operatingsystemrelease": [
-        "5",
-        "6",
-        "7"
-      ]
-    },
-    {
-      "operatingsystem": "Scientific",
-      "operatingsystemrelease": [
-        "5",
-        "6",
         "7"
       ]
     },
     {
       "operatingsystem": "Debian",
       "operatingsystemrelease": [
-        "6",
-        "7"
+        "8"
       ]
     },
     {
       "operatingsystem": "Ubuntu",
       "operatingsystemrelease": [
-        "12.04",
-        "14.04"
+        "16.04"
       ]
-    },
-    {
-      "operatingsystem": "Gentoo"
-    },
-    {
-      "operatingsystem": "FreeBSD"
-    },
-    {
-      "operatingsystem": "Solaris"
-    },
-    {
-      "operatingsystem": "Archlinux"
     }
   ],
   "requirements": [
     {
-      "name": "pe",
-      "version_requirement": ">= 3.2.0"
-    },
-    {
       "name": "puppet",
-      "version_requirement": ">= 3.2.0"
+      "version_requirement": ">= 4.0.0"
     }
   ],
-  "name": "pdxcat-nrpe",
-  "version": "2.1.1",
-  "source": "https://github.com/pdxcat/puppet-module-nrpe",
-  "author": "Computer Action Team",
+  "name": "obmondo-nrpe",
+  "version": "0.5",
+  "source": "https://github.com/Obmondo/puppet-module-nrpe",
+  "author": "EnableIT ApS",
   "license": "Apache-2.0",
   "summary": "Puppet module for NRPE",
-  "project_page": "https://github.com/pdxcat/puppet-module-nrpe",
-  "dependencies": []
+  "project_page": "https://github.com/Obmondo/puppet-module-nrpe",
+  "dependencies": [
+    {
+      "name": "enableit/eit_types"
+    },
+    {
+      "name": "puppetlabs/stdlib"
+    }
+  ],
+  "data_provider": "hiera"
 }

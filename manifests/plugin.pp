@@ -1,20 +1,21 @@
 #
 define nrpe::plugin (
-  $ensure       = present,
+  Enum[present, absent] $ensure       = present,
   $content      = undef,
   $source       = undef,
-  $mode         = $nrpe::params::nrpe_plugin_file_mode,
-  $libdir       = $nrpe::params::libdir,
-  $package_name = $nrpe::params::nrpe_packages,
-  $file_group   = $nrpe::params::nrpe_files_group,
 ) {
-  file { "${libdir}/${title}":
+  $_lib_dir = lookup('nrpe::lib_dir')
+
+  $_packages = lookup('nrpe::packages')
+  # notify { "woop !installing these packages ${_packages}": }
+
+  file { "${_lib_dir}/${title}":
     ensure  => $ensure,
     content => $content,
     source  => $source,
     owner   => 'root',
-    group   => $file_group,
-    mode    => $mode,
-    require => Package[$package_name],
+    group   => 'root',
+    mode    => lookup('nrpe::file_mode'),
+    require => Package[lookup('nrpe::packages')],
   }
 }

@@ -1,0 +1,10 @@
+---
+nrpe::service_name: 'nagios-nrpe-server'
+nrpe::user: 'nagios'
+nrpe::group: 'nagios'
+nrpe::pid_file: '/var/run/nagios/nrpe.pid'
+nrpe::include_dir: '/etc/nagios/nrpe.d'
+nrpe::lib_dir: '/usr/lib/nagios/plugins'
+nrpe::packages:
+  - 'nagios-nrpe-server'
+  - 'nagios-plugins'

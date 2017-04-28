@@ -19,47 +19,47 @@
 # Copyright 2013 Computer Action Team, unless otherwise noted.
 #
 class nrpe (
-  $allowed_hosts = ['127.0.0.1'],
-  $server_address = '0.0.0.0',
-  $command_timeout = 60,
-  $config          = $nrpe::params::nrpe_config,
-  $include_dir     = $nrpe::params::nrpe_include_dir,
-  $package_name    = $nrpe::params::nrpe_packages,
-  $provider        = $nrpe::params::nrpe_provider,
-  $manage_package  = true,
-  $purge           = undef,
-  $recurse         = undef,
-  $service_name    = $nrpe::params::nrpe_service,
-  $dont_blame_nrpe = $nrpe::params::dont_blame_nrpe,
-  $log_facility    = $nrpe::params::log_facility,
-  $server_port     = $nrpe::params::server_port,
-  $command_prefix  = $nrpe::params::command_prefix,
-  $debug           = $nrpe::params::debug,
-  $connection_timeout = $nrpe::params::connection_timeout,
-  $allow_bash_command_substitution = $nrpe::params::allow_bash_command_substitution,
-  $nrpe_user       = $nrpe::params::nrpe_user,
-  $nrpe_group      = $nrpe::params::nrpe_group,
-  $nrpe_pid_file   = $nrpe::params::nrpe_pid_file,
-) inherits nrpe::params {
+  Stdlib::AbsolutePath $config_file,
+  Stdlib::AbsolutePath $include_dir,
+  Stdlib::AbsolutePath $lib_dir,
+  String $service_name,
+  Variant[String, Array[String]] $packages,
+  Eit_types::User $user,
+  Eit_types::Group $group,
+  Stdlib::AbsolutePath $pid_file,
+  Array[Eit_types::IP] $allowed_hosts      = ['127.0.0.1'],
+  Eit_types::IP $server_address            = '0.0.0.0',
+  Integer[0, default] $command_timeout     = 60,
+  Boolean $manage_package                  = true,
+  Boolean $purge                           = true,
+  Boolean $recurse                         = true,
+  Boolean $dont_blame_nrpe                 = false,
+  Boolean $allow_bash_command_substitution = false,
+  Enum['daemon', 'syslog'] $log_facility   = 'syslog',
+  Eit_types::Port $server_port             = 5666,
+  Optional[String] $command_prefix         = undef,
+  Boolean $debug                           = false,
+  Integer[0, default] $connection_timeout  = 300,
+  String $file_mode,
+) {
 
   if $manage_package {
-    package { $package_name:
+    ensure_packages($packages, {
       ensure   => installed,
-      provider => $provider,
-    }
+    })
   }
 
   service { $service_name:
     ensure    => running,
     name      => $service_name,
     enable    => true,
-    require   => Package[$package_name],
+    require   => Package[$packages],
     subscribe => File['nrpe_config'],
   }
 
   file { 'nrpe_config':
-    name    => $config,
-    content => template('nrpe/nrpe.cfg.erb'),
+    name    => $config_file,
+    content => epp('nrpe/nrpe.cfg.epp'),
     require => File['nrpe_include_dir'],
   }
 
@@ -68,7 +68,7 @@ class nrpe (
     name    => $include_dir,
     purge   => $purge,
     recurse => $recurse,
-    require => Package[$package_name],
+    require => Package[$packages],
   }
 
 }

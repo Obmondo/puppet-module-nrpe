@@ -1,0 +1,4 @@
+---
+nrpe::config_file: '/etc/nagios/nrpe.cfg'
+nrpe::file_mode: '0755'
+nrpe::service_name: nrpe

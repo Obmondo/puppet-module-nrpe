@@ -1,0 +1,9 @@
+---
+nrpe::user: 'nagios'
+nrpe::group: 'nagios'
+nrpe::pid_file: '/var/run/nrpe/nrpe.pid'
+nrpe::include_dir: '/etc/nrpe.d'
+nrpe::lib_dir: '/usr/lib64/nagios/plugins'
+nrpe::packages:
+  - 'nrpe'
+  - 'nagios-plugins-all'
