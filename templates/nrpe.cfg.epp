@@ -149,7 +149,7 @@ command_prefix=<%= $nrpe::command_prefix %>
 # syslog facility.
 # Values: 0=debugging off, 1=debugging on
 
-debug=<%= Boolean($nrpe::debug) %>
+debug=<%= Integer($nrpe::debug) %>
 
 
 
